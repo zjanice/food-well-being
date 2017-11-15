@@ -1,0 +1,48 @@
+body {
+  /*font-family: 'Roboto', sans-serif;*/
+  font-family:Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important
+}
+
+.canvas{
+  width:100%;
+  min-height:600px;
+}
+
+/* tooltip */
+.container{
+  position:relative;
+}
+
+.custom-tooltip{
+  position:absolute;
+  width:220px;
+  min-height:50px;
+  padding:10px 5px;
+  background:white;
+  box-shadow: 0 2px 2px 0px rgba(0,0,0,.1);
+  top:0;
+  left:0;
+  visibility:hidden;
+  opacity:0;
+}
+
+
+/*.container {
+    width: 85%;
+}
+
+.container h2 {
+    margin-left: 5%;
+}*/
+
+.row-no-padding {
+   padding: 0 !important;
+}
+
+.rightCol {
+   padding-top: 5%;
+}
+
+.filterSection {
+    margin-top: 15px;
+}
