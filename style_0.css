@@ -5,17 +5,12 @@ body {
 
 .canvas{
   width:100%;
-  min-height:1000px;
+  min-height:600px;
 }
 
 /* tooltip */
 .container{
   position:relative;
-}
-
-#barCompareTitle {
-  margin-left: 37%;
-  margin-bottom: -2%;
 }
 
 .custom-tooltip{
@@ -39,6 +34,14 @@ body {
   stroke-width:.5px;
 }
 
+/*.container {
+    width: 85%;
+}
+
+.container h2 {
+    margin-left: 5%;
+}*/
+
 .row-no-padding {
    padding: 0 !important;
 }
@@ -49,12 +52,4 @@ body {
 
 .filterSection {
     margin-top: 15px;
-}
-
-.overweightBar {
-  fill: #ffb355;
-}
-
-.notOverweightBar {
-  fill: #43c9bd;
 }

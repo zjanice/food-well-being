@@ -5,7 +5,7 @@
   <title>DS Final Proejct</title>
   <script src="https://d3js.org/d3.v4.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link href="style.css" rel="stylesheet"/>
+  <link href="style_0.css" rel="stylesheet"/>
   <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
@@ -17,50 +17,36 @@
   </header>
   <div class="container">
     <div class="row row-no-padding vizContent">
-      <div class="col-1 leftCol">
-        <ul class="nav flex-column">
-          <li class="nav-item factor">
-            <a class="nav-link active" href="#">Education</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link" href="#">Race</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link active" href="#">Sex</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link active" href="#">Age</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link" href="#">Marital</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link active" href="#">Employment</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link" href="#">Ndinnerout</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link active" href="#">Vegetarian</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link" href="#">Foodallergy</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link active" href="#">Lactoseintol</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link" href="#">Dieting</a>
-          </li>
-        </ul>
+      <div class="col-4 leftCol">
+        <button type="button" class="btn btn-outline-secondary" id="showAllBtn">Show all</button>
+
+        <div class="factorContainer">
+          <span class="filterTitle">Sex</span>
+          <div class="btn-group" id="filterBySex" role="group"></div>
+        </div>
+
+        <div class="factorContainer">
+          <span class="filterTitle">Race</span>
+          <div class="btn-group" id="filterByRace" role="group"></div>
+        </div>
+
+        <div class="factorContainer">
+          <span class="filterTitle">Education</span>
+          <div class="btn-group" id="filterByEdu" role="group"></div>
+        </div>
       </div>
 
-      <div class="col-11">
+      <div class="col-8">
         <section class="canvas" id="canvas">
-          <div id = "barCompareTitle">
-            <span>Not overweight  vs. </span>
-            <span>Overweight and Obese</span>
+          <div class="btn-group xAxisOptions">
+            <button type="button" class="btn btn-default dropdown-toggle" id="xDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                X Axis:
+            </button>
+            <div class="dropdown-menu" aria-labelledby="xDropdown">
+                <li><a class="dropdown-item" href="#">Minimum Nights</a></li>
+            </div>
           </div>
+
         </section>
       </div>
 
@@ -68,12 +54,16 @@
         <p class="title"></p>
         <p class="value1"></p>
         <p class="value2"></p>
+        <p class="value3"></p>
+        <p class="value4"></p>
+        <p class="value5"></p>
+        <p class="value6"></p>
       </div>
 
     </div>
 
   </div>
-  <script src='app.js'></script>
+  <script src='app_0.js'></script>
   <script src='lib/crossfilter.js'></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
