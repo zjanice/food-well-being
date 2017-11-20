@@ -3,9 +3,24 @@ body {
   font-family:Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important
 }
 
+header {
+  padding: 2% 12%;
+}
+
+.nav-link {
+  color: #9c9c9c;
+}
+
+.nav > li > a:hover,
+.nav > li  > a:focus {
+    background-color: #f3f3f3;
+    color: black;
+}
+
 .canvas{
   width:100%;
   min-height:1000px;
+  padding-top: 3%;
 }
 
 /* tooltip */
@@ -14,7 +29,7 @@ body {
 }
 
 #barCompareTitle {
-  margin-left: 37%;
+  margin-left: 34%;
   margin-bottom: -2%;
 }
 
@@ -43,18 +58,24 @@ body {
    padding: 0 !important;
 }
 
-.rightCol {
-   padding-top: 5%;
-}
-
 .filterSection {
     margin-top: 15px;
+}
+.notOverweightBar {
+  fill: #43c9bd;
 }
 
 .overweightBar {
   fill: #ffb355;
 }
 
-.notOverweightBar {
-  fill: #43c9bd;
+#notOverweightTitle {
+  color: #43c9bd;
+  font-size: 1.2em;
+}
+
+#overweightTitle {
+  color: darkOrange;
+  /*color: #ffb355;*/
+  font-size: 1.2em;
 }

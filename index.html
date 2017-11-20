@@ -16,63 +16,59 @@
     <div id="subTitle"></div>
   </header>
   <div class="container">
-    <div class="row row-no-padding vizContent">
-      <div class="col-1 leftCol">
-        <ul class="nav flex-column">
-          <li class="nav-item factor">
-            <a class="nav-link active" href="#">Education</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link" href="#">Race</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link active" href="#">Sex</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link active" href="#">Age</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link" href="#">Marital</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link active" href="#">Employment</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link" href="#">Ndinnerout</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link active" href="#">Vegetarian</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link" href="#">Foodallergy</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link active" href="#">Lactoseintol</a>
-          </li>
-          <li class="nav-item factor">
-            <a class="nav-link" href="#">Dieting</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="col-11">
-        <section class="canvas" id="canvas">
-          <div id = "barCompareTitle">
-            <span>Not overweight  vs. </span>
-            <span>Overweight and Obese</span>
-          </div>
-        </section>
-      </div>
-
-      <div class="custom-tooltip">
-        <p class="title"></p>
-        <p class="value1"></p>
-        <p class="value2"></p>
-      </div>
-
+    <div class="topnav">
+      <ul class="nav">
+        <li class="nav-item factor">
+          <a class="nav-link active" href="#">Education</a>
+        </li>
+        <li class="nav-item factor">
+          <a class="nav-link" href="#">Race</a>
+        </li>
+        <li class="nav-item factor">
+          <a class="nav-link active" href="#">Sex</a>
+        </li>
+        <li class="nav-item factor">
+          <a class="nav-link active" href="#">Age</a>
+        </li>
+        <li class="nav-item factor">
+          <a class="nav-link" href="#">Marital</a>
+        </li>
+        <li class="nav-item factor">
+          <a class="nav-link active" href="#">Employment</a>
+        </li>
+        <li class="nav-item factor">
+          <a class="nav-link" href="#">Ndinnerout</a>
+        </li>
+        <li class="nav-item factor">
+          <a class="nav-link active" href="#">Vegetarian</a>
+        </li>
+        <li class="nav-item factor">
+          <a class="nav-link" href="#">Foodallergy</a>
+        </li>
+        <li class="nav-item factor">
+          <a class="nav-link active" href="#">Lactoseintol</a>
+        </li>
+        <li class="nav-item factor">
+          <a class="nav-link" href="#">Dieting</a>
+        </li>
+      </ul>
     </div>
 
+    <section class="canvas" id="canvas">
+      <div id = "barCompareTitle">
+        <span id="notOverweightTitle">Not overweight</span>
+        <span> vs.</span>
+        <span id="overweightTitle">Overweight and Obese</span>
+      </div>
+    </section>
+
+    <!-- <div class="custom-tooltip">
+      <p class="title"></p>
+      <p class="value1"></p>
+      <p class="value2"></p>
+    </div> -->
   </div>
+
   <script src='app.js'></script>
   <script src='lib/crossfilter.js'></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

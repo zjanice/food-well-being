@@ -1,16 +1,16 @@
-var m = {t:50,r:50,b:50,l:50},
+var m = {t:50,r:50,b:50,l:0},
     w = document.getElementById('canvas').clientWidth - m.l - m.r,
     h = document.getElementById('canvas').clientHeight - m.t -m.b;
 
 var plot = d3.select('.canvas')
     .append('svg')
     .attr('width', w + m.l + m.r)
-    .attr('height', h + m.t + m.b +30)
+    .attr('height', h + m.t + m.b)
     .append('g')
     .attr('transform','translate('+ m.l+','+ m.t+')');
 
 var factorName = "Education";
-var barInterval = 30;
+var barInterval = 35, barHeight = 30;
 // Scale
 var scaleX= d3.scaleLinear()
     .range([0,w/2]);
@@ -84,27 +84,27 @@ function draw(data){
           console.log(i);
           console.log(this);
       })
-      .on('mouseenter',function(d){
-          var tooltip = d3.select('.custom-tooltip');
-          tooltip.select('.title')
-              .html(d.factor)
-          tooltip.select('.value1')
-              .html(d.item);
-          tooltip.transition().style('opacity',1);
-          d3.select(this).style('stroke-width','3px');
-      })
-      .on('mousemove',function(d){
-          var tooltip = d3.select('.custom-tooltip');
-          var xy = d3.mouse(d3.select('.container').node());
-          tooltip
-              .style('left',xy[0]+10+'px')
-              .style('top',xy[1]+10+'px');
-      })
-      .on('mouseleave',function(d){
-          var tooltip = d3.select('.custom-tooltip');
-          tooltip.transition().style('opacity',0);
-          d3.select(this).style('stroke-width','0px');
-      });
+      // .on('mouseenter',function(d){
+      //     var tooltip = d3.select('.custom-tooltip');
+      //     tooltip.select('.title')
+      //         .html(d.factor)
+      //     tooltip.select('.value1')
+      //         .html(d.notOverweight/(d.overweightObese + d.notOverweight));
+      //     tooltip.transition().style('opacity',1);
+      //     d3.select(this).style('stroke-width','3px');
+      // })
+      // .on('mousemove',function(d){
+      //     var tooltip = d3.select('.custom-tooltip');
+      //     var xy = d3.mouse(d3.select('.container').node());
+      //     tooltip
+      //         .style('left',xy[0]+10+'px')
+      //         .style('top',xy[1]+10+'px');
+      // })
+      // .on('mouseleave',function(d){
+      //     var tooltip = d3.select('.custom-tooltip');
+      //     tooltip.transition().style('opacity',0);
+      //     d3.select(this).style('stroke-width','0px');
+      // });
 
     //UPDATE + ENTER - NotOverweight
     barNotOverweightEnter.merge(barNotOverweight)
@@ -114,9 +114,11 @@ function draw(data){
           return w/2-scaleX(d.notOverweight/(d.overweightObese + d.notOverweight));
         })
         .attr("width", function(d) {
+          //console.log(d.notOverweight/(d.overweightObese + d.notOverweight));
           return scaleX(d.notOverweight/(d.overweightObese + d.notOverweight));
         } )
-        .attr("height", scaleY.bandwidth());
+        .attr("height", barHeight);
+        //.attr("height", scaleY.bandwidth());
 
     //EXIT
     barNotOverweight.exit()
@@ -131,18 +133,46 @@ function draw(data){
 
     let barOverweightEnter = barOverweight.enter()
         .append('rect')
-        .attr("x", w/2)
-        .attr("y", function(d, i) {return i*barInterval;})
-        .attr('class','bar overweightBar');
+        .attr('x', w/2)
+        .attr('y', function(d, i) {return i*barInterval;})
+        .attr('class','bar overweightBar')
+        .on('click',function(d,i){
+            console.log(d);
+            console.log(i);
+            console.log(this);
+        })
+        .on('mouseenter',function(d){
+            var tooltip = d3.select('.custom-tooltip');
+            tooltip.select('.title')
+                .html(d.factor)
+            tooltip.select('.value1')
+                .html(d.overweightObese/(d.overweightObese + d.notOverweight));
+            tooltip.transition().style('opacity',1);
+            d3.select(this).style('stroke-width','3px');
+        })
+        .on('mousemove',function(d){
+            var tooltip = d3.select('.custom-tooltip');
+            var xy = d3.mouse(d3.select('.container').node());
+            tooltip
+                .style('left',xy[0]+10+'px')
+                .style('top',xy[1]+10+'px');
+        })
+        .on('mouseleave',function(d){
+            var tooltip = d3.select('.custom-tooltip');
+            tooltip.transition().style('opacity',0);
+            d3.select(this).style('stroke-width','0px');
+        });;
 
     //UPDATE + ENTER - Overweight
     barOverweightEnter.merge(barOverweight)
         .transition()
         .duration(1000)
-        .attr("width", function(d) {
+        .attr('width', function(d) {
+          //console.log(d.overweightObese/(d.overweightObese + d.notOverweight));
           return scaleX(d.overweightObese/(d.overweightObese + d.notOverweight));
         } )
-        .attr("height", scaleY.bandwidth());
+        .attr('height', barHeight);
+        //.attr("height", scaleY.bandwidth());
 
     //EXIT
     barOverweight.exit()
@@ -151,24 +181,67 @@ function draw(data){
       .attr('width', 0)
       .remove();
 
+    // Append NOT overweight labels
+    let notOverweightLabel = plot.selectAll('.notOverweightLabel').data(data);
+
+    let notOverweightLabelEnter = notOverweightLabel.enter()
+        .append('text')
+        .attr('class', 'notOverweightLabel label')
+        .text(function(d){
+          return Math.round(d.notOverweight/(d.overweightObese + d.notOverweight)* 100)+ '%' ;})
+        .attr('x', w/10)
+        .attr('y', function(d, i) {return i*barInterval + 20;})
+        .style('text-anchor', "left")
+        .style('fill', '#212121');
+
+    //UPDATE + ENTER - Label
+    notOverweightLabelEnter.merge(notOverweightLabel)
+      .text(function(d){
+        return Math.round(d.notOverweight/(d.overweightObese + d.notOverweight)* 100)+ '%';});
+
+    //EXIT
+    notOverweightLabel.exit().remove();
+
+
+    // Append overweight labels
+    let overweightLabel = plot.selectAll('.overweightLabel').data(data);
+
+    let overweightLabelEnter = overweightLabel.enter()
+        .append('text')
+        .attr('class', 'overweightLabel label')
+        .text(function(d){
+          return Math.round(d.overweightObese/(d.overweightObese + d.notOverweight)* 100)+ '%' ;})
+        .attr('x', w-w/10)
+        .attr('y', function(d, i) {return i*barInterval + 20;})
+        .style('text-anchor', "right")
+        .style('fill', '#212121');
+
+    //UPDATE + ENTER - Label
+    overweightLabelEnter.merge(overweightLabel)
+      .text(function(d){
+        return Math.round(d.overweightObese/(d.overweightObese + d.notOverweight)* 100)+ '%';});
+
+    //EXIT
+    overweightLabel.exit().remove();
 
     // Append labels
-    let label = plot.selectAll('.label').data(data);
+    let factorLevelLabel = plot.selectAll('.factorLevelLabel').data(data);
 
-    let labelEnter = label.enter()
+    let factorLevelLabelEnter = factorLevelLabel.enter()
         .append('text')
-        .attr('class', 'label')
+        .attr('class', 'factorLevelLabel label')
         .text(function(d){return d.item;})
-        .style("text-anchor", "left")
         .attr('x', w/2)
-        .attr("y", function(d, i) {return i*barInterval +15;});
+        .attr('y', function(d, i) {return i*barInterval + 20;})
+        .style('text-anchor', "middle")
+        .style('fill', '#212121');
 
       //UPDATE + ENTER - Label
-      labelEnter.merge(label)
+      factorLevelLabelEnter.merge(factorLevelLabel)
         .text(function(d){return d.item;});
 
       //EXIT
-      label.exit().remove();
+      factorLevelLabel.exit().remove();
 }
 
 // Parse
