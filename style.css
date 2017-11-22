@@ -7,6 +7,10 @@ header {
   padding: 2% 12%;
 }
 
+.nav {
+  margin-left: -9%;
+}
+
 .nav-link {
   color: #9c9c9c;
 }
@@ -21,6 +25,7 @@ header {
   width:100%;
   min-height:1000px;
   padding-top: 3%;
+  margin-left: -5%;
 }
 
 /* tooltip */
