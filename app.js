@@ -202,6 +202,28 @@ function draw(data){
     //EXIT
     notOverweightLabel.exit().remove();
 
+    // Append total number of not overweight people
+    let notOverweightTotalLabel = plot.selectAll('.notOverweightTotalLabel').data(data);
+
+    let notOverweightTotalLabelEnter = notOverweightTotalLabel.enter()
+        .append('text')
+        .attr('class', 'notOverweightTotalLabel label')
+        .text(function(d){
+          return d.notOverweight+ ' \u2603' ;})
+        .attr('x', 20)
+        .attr('y', function(d, i) {return i*barInterval + 20;})
+        .style('text-anchor', "right")
+        .style('fill', '#b3b3b3');
+
+    //UPDATE + ENTER - Label
+    notOverweightTotalLabelEnter.merge(notOverweightTotalLabel)
+    .text(function(d){
+      return d.notOverweight+ ' \u2603' ;});
+
+    //EXIT
+    notOverweightTotalLabel.exit().remove();
+
+
 
     // Append overweight labels
     let overweightLabel = plot.selectAll('.overweightLabel').data(data);
@@ -218,13 +240,42 @@ function draw(data){
 
     //UPDATE + ENTER - Label
     overweightLabelEnter.merge(overweightLabel)
-      .text(function(d){
-        return Math.round(d.overweightObese/(d.overweightObese + d.notOverweight)* 100)+ '%';});
+    .text(function(d){
+      return Math.round(d.overweightObese/(d.overweightObese + d.notOverweight)* 100)+ '%' ;});
 
     //EXIT
     overweightLabel.exit().remove();
 
-    // Append labels
+    // Append total number of overweight people
+    let overweightTotalLabel = plot.selectAll('.overweightTotalLabel').data(data);
+
+    let overweightTotalLabelEnter = overweightTotalLabel.enter()
+        .append('text')
+        .attr('class', 'overweightTotalLabel label')
+        .text(function(d){
+          return d.overweightObese+ ' \u2603' ;})
+        .attr('x', w-30)
+        .attr('y', function(d, i) {return i*barInterval + 20;})
+        .style('text-anchor', "right")
+        .style('fill', '#b3b3b3');
+
+    //UPDATE + ENTER - Label
+    overweightTotalLabelEnter.merge(overweightTotalLabel)
+    .text(function(d){
+      return d.overweightObese+ ' \u2603' ;});
+
+    //EXIT
+    overweightTotalLabel.exit().remove();
+
+
+
+
+
+
+
+
+
+    // Append facor labels
     let factorLevelLabel = plot.selectAll('.factorLevelLabel').data(data);
 
     let factorLevelLabelEnter = factorLevelLabel.enter()
