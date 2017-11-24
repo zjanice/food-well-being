@@ -7,12 +7,17 @@ header {
   padding: 2% 9.5%;
 }
 
+svg {
+  padding-left: 1%;
+}
+
 .nav {
   margin-left: -4%;
 }
 
 .nav-link {
   color: #9c9c9c;
+  font-size: small;
 }
 
 .nav > li > a:hover,
