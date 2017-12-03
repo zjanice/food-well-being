@@ -3,16 +3,20 @@ body {
   font-family:Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important
 }
 
-header {
+/*header {
   padding: 2% 9.5%;
+}*/
+
+#title {
+  margin: 2% 15%;
 }
 
 #subTitle {
-  margin-left: 88%;
+  margin-left: 76%;
 }
 
 #subTitle span{
-  padding-left: 15%;
+  padding-left: 5%;
 }
 
 #subTitle span i{
@@ -48,6 +52,7 @@ svg {
 
 /* tooltip */
 .container{
+  margin-top: 2%;
   position:relative;
 }
 

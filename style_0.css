@@ -3,19 +3,22 @@ body {
   font-family:Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important
 }
 
-header {
+/*header {
   padding: 2% 10%;
+}*/
+
+#title {
+  margin: 2% 20%;
 }
 
 .canvas{
-  margin-left: 8%;
   width:100%;
   min-height:1500px;
 }
 
 .container{
-  margin-left: 0 !important;
-  /*position:relative;*/
+  /*margin-left: 0 !important;*/
+  position:relative;
 }
 
 .custom-tooltip{
@@ -34,7 +37,7 @@ header {
 .legend {
   height: 30px;
   width: 100%;
-  margin-left: 11% !important;
+  margin-left: 3% !important;
 }
 
 .legendGreen:before{
