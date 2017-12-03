@@ -11,6 +11,7 @@ var plot = d3.select('.canvas')
 
 var factorName = "Education";
 var barInterval = 35, barHeight = 30;
+
 // Scale
 var scaleX= d3.scaleLinear()
     .range([0,w/2]);
@@ -112,10 +113,11 @@ function draw(data){
         .duration(1000)
         .attr("x", function(d){
           return w/2-scaleX(d.notOverweight/(d.overweightObese + d.notOverweight));
+          //return w/2-scaleX(d.notOverweight/(13170));
         })
         .attr("width", function(d) {
-          //console.log(d.notOverweight/(d.overweightObese + d.notOverweight));
           return scaleX(d.notOverweight/(d.overweightObese + d.notOverweight));
+          //return scaleX(d.notOverweight/(13170));
         } )
         .attr("height", barHeight);
         //.attr("height", scaleY.bandwidth());
@@ -170,6 +172,7 @@ function draw(data){
         .attr('width', function(d) {
           //console.log(d.overweightObese/(d.overweightObese + d.notOverweight));
           return scaleX(d.overweightObese/(d.overweightObese + d.notOverweight));
+          //return scaleX(d.overweightObese/(13170));
         } )
         .attr('height', barHeight);
         //.attr("height", scaleY.bandwidth());
@@ -189,6 +192,7 @@ function draw(data){
         .attr('class', 'notOverweightLabel label')
         .text(function(d){
           return Math.round(d.notOverweight/(d.overweightObese + d.notOverweight)* 100)+ '%' ;})
+          //return Math.round(d.notOverweight/(13170)* 100)+ '%' ;})
         .attr('x', w/10)
         .attr('y', function(d, i) {return i*barInterval + 20;})
         .style('text-anchor', "left")
@@ -198,6 +202,7 @@ function draw(data){
     notOverweightLabelEnter.merge(notOverweightLabel)
       .text(function(d){
         return Math.round(d.notOverweight/(d.overweightObese + d.notOverweight)* 100)+ '%';});
+        //return Math.round(d.notOverweight/(13170)* 100)+ '%';});
 
     //EXIT
     notOverweightLabel.exit().remove();
@@ -233,6 +238,7 @@ function draw(data){
         .attr('class', 'overweightLabel label')
         .text(function(d){
           return Math.round(d.overweightObese/(d.overweightObese + d.notOverweight)* 100)+ '%' ;})
+          //return Math.round(d.overweightObese/(13170)* 100)+ '%' ;})
         .attr('x', w-w/10)
         .attr('y', function(d, i) {return i*barInterval + 20;})
         .style('text-anchor', "right")
@@ -242,6 +248,7 @@ function draw(data){
     overweightLabelEnter.merge(overweightLabel)
     .text(function(d){
       return Math.round(d.overweightObese/(d.overweightObese + d.notOverweight)* 100)+ '%' ;});
+      //return Math.round(d.overweightObese/(13170)* 100)+ '%' ;});
 
     //EXIT
     overweightLabel.exit().remove();
@@ -266,13 +273,6 @@ function draw(data){
 
     //EXIT
     overweightTotalLabel.exit().remove();
-
-
-
-
-
-
-
 
 
     // Append facor labels

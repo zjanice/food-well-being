@@ -3,14 +3,19 @@ body {
   font-family:Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif !important
 }
 
-.canvas{
-  width:100%;
-  min-height:600px;
+header {
+  padding: 2% 10%;
 }
 
-/* tooltip */
+.canvas{
+  margin-left: 8%;
+  width:100%;
+  min-height:1500px;
+}
+
 .container{
-  position:relative;
+  margin-left: 0 !important;
+  /*position:relative;*/
 }
 
 .custom-tooltip{
@@ -26,30 +31,26 @@ body {
   /*opacity: 1;*/
 }
 
-.axis .tick line{
-  stroke:rgb(150,150,150);
+.legend {
+  height: 30px;
+  width: 100%;
+  margin-left: 11% !important;
 }
 
-.axis .tick line{
-  stroke-width:.5px;
+.legendGreen:before{
+  content: ' \25CF';
+  font-size: 15px;
+  color: #43c9bd;
 }
 
-/*.container {
-    width: 85%;
+.legendOrange:before{
+  content: ' \25CF';
+  font-size: 15px;
+  color: #ffb355;
 }
 
-.container h2 {
-    margin-left: 5%;
-}*/
-
-.row-no-padding {
-   padding: 0 !important;
-}
-
-.rightCol {
-   padding-top: 5%;
-}
-
-.filterSection {
-    margin-top: 15px;
+.legendRed:before{
+  content: ' \25CF';
+  font-size: 15px;
+  color: #ff7b7b;
 }

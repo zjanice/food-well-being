@@ -1,6 +1,3 @@
-/**
- * Created by siqi on 11/14/16.
- */
 
 var m = {t:50,r:50,b:50,l:50},
     w = document.getElementById('canvas').clientWidth - m.l - m.r,
@@ -13,115 +10,132 @@ var plot = d3.select('.canvas')
     .append('g').attr('class','plot')
     .attr('transform','translate('+ m.l+','+ m.t+')');
 
-//Random scatter 100 particles across the screen
-// var data = [];
-//
-// for(var i=0; i<50; i++){
-//     data.push({
-//        x:w*Math.random(),
-//        y:h*Math.random(),
-//        r:5+15*Math.random(),
-//        color:Math.random() >.5?'red':'blue'
-//     });
-// }
-// Data input
+var numPerRow = 10;
+var gapY = 15;
+
+var legendContainer = d3.select('.legend')
+  .append('svg')
+  .attr('width', w + m.l + m.r)
+  .attr('height', 50)
+  .append('g').attr('class','legendContainer')
+  .attr('transform','translate('+ m.l+','+ m.t+')');
+
+var legendSelection = legendContainer.append('circle')
+  .attr('cx', w/4)
+  .attr('cy', 50)
+  .attr('r', 5)
+  .style('fill', '#ffb355');
+
+var scaleColor = d3.scaleOrdinal()
+    .domain(['1', '2', '3']) // Not overweight: 1, overweight: 2, obese: 3
+    .range(['#43c9bd', '#ffb355', '#ff7b7b']); // green, orange, red
+
 d3.queue()
-  .defer(d3.csv, 'data/individual_dataset.csv',parse)
+  .defer(d3.csv, 'data/individual_with_groupId.csv',parse)
 	.await(dataLoaded);
 
 function dataLoaded(err, data){
+  let cf = crossfilter(data);
+  let filterByRegion = cf.dimension((d) => d.familysize);
+  let filterByRegionGroup = filterByRegion.group();
+  let regionOptions = filterByRegionGroup.all();
+
+  // Populate the options
+  d3.select('.nav').select('#filterByRegion')
+    .selectAll('li')
+    .data(regionOptions)
+    .enter()
+    .append('li')
+    .append('a')
+    .attr('href','#')
+    .attr('class','option dropdown-item')
+    .html(function(d){
+      // console.log(d);
+      return d.key;
+    });
+
+    // Listen for changes in the dropdown menus
+  	d3.select('#filterByRegion')
+  		.selectAll('.option')
+  		.on('click',function(){
+        optionSelected = $(this).text();
+        filterByRegion.filter(optionSelected);
+        draw(filterByRegion.top(Infinity));
+
+        $('.option-dropdown').text(optionSelected);
+  		});
+
   draw(data);
 }
 
-//Represent these 100 particles
-var nodes = plot.selectAll('.node')
-    .data(data)
-    .enter()
-    .append('g').attr('class','node')
-    .attr('transform',function(d){
-       return 'translate('+ d.x+','+ d.y+')'
-    });
-nodes.append('circle').attr('class','outer')
-    .attr('r',function(d){return d.r})
-    .style('fill',function(d){return d.color});
-nodes.append('circle').attr('class','inner')
-    .attr('r',2)
-    .style('fill',function(d){return d.color});
-nodes.append('line').attr('class','velocity')
-    .style('stroke',function(d){return d.color})
-    .style('stroke-width','1px');
-
-//Set up a force simulation
-var simulation = d3.forceSimulation(data)
-    //.alpha(1)
-    //.alphaDecay(0)
-    //.alphaTarget(0)
-    //.alphaMin(.001)
-    .velocityDecay(.5)
-    //.on('tick.log',function(){ console.log( this.alpha() )})
-    .on('end',function(){ console.log('Force simulation stopped!') });
-
-//Examples of different forces
-//CENTER (compare this to positioning)
-var forceCenter = d3.forceCenter(w/2,h/2);
-
-//MANYBODY
-var forceManyBody = d3.forceManyBody()
-    .strength(0);
-
-//COLLISION
-var forceCollision = d3.forceCollide()
-    .radius(function(d,i){
-        return d.r;
-    });
-
-//POSITION
-var forceX = d3.forceX()
-    .x(function(d){return d.x});
-
-var forceY = d3.forceY()
-    .y(h/2);
-
-//CUSTOM FORCE
-var forceCustom = function(){
-
-    var nodes;
-
-    function force(alpha){
-        //a custom force function that tries to separate nodes by their color
-        var node, center;
-        for(var i = 0, k = alpha*.1; i < nodes.length; i++){
-            node = nodes[i];
-            center = node.color=='red'?[w/3,h/2]:[w*2/3,h/2];
-            node.vx += (center[0] - node.x)*k;
-            node.vy += (center[1] - node.y)*k;
-        }
-        console.log('force custom');
-    }
-
-    force.initialize = function(_){
-        nodes = _;
-    }
-
-    return force;
-};
-
-//Experiment with forces
-simulation
-    .force('center',forceCenter)
-    .force('charge',forceManyBody)
-    .force('collide',forceCollision)
-    //.force('forceX',forceX)
-    //.force('forceY',forceY)
-    .force('custom',forceCustom())
-    .on('tick.reposition', reposition);
-
-function reposition(){
-    nodes
-        .attr('transform',function(d){
-            return 'translate('+ d.x+','+ d.y+')'
+function draw(data){
+  let node = plot.selectAll('circle').data(data);
+  //ENTER
+    var nodeEnter = node.enter()
+        .append('circle')
+        .attr('class','node')
+        .on('click',function(d,i){
+            console.log(d);
+            console.log(i);
+            console.log(this);
+        })
+        .on('mouseenter',function(d){
+            var tooltip = d3.select('.custom-tooltip');
+            tooltip.select('.title')
+                .html("Family " + d.g_index)
+            tooltip.select('.value1')
+                .html("BMI: " + d.bmi)
+            tooltip.select('.value2')
+                .html("Census region: " + d.region)
+            tooltip.select('.value3')
+                .html("Monthly income: $" + d.income)
+            tooltip.select('.value4')
+                .html("Family size: " + d.familysize);
+            tooltip.transition().style('opacity',1);
+            d3.select(this).style('stroke-width','3px');
+        })
+        .on('mousemove',function(d){
+            var tooltip = d3.select('.custom-tooltip');
+            var xy = d3.mouse(d3.select('.container').node());
+            tooltip
+                .style('left',xy[0]+10+'px')
+                .style('top',xy[1]+10+'px');
+        })
+        .on('mouseleave',function(d){
+            var tooltip = d3.select('.custom-tooltip');
+            tooltip.transition().style('opacity',0);
+            d3.select(this).style('stroke-width','0px');
         });
-    nodes.select('.velocity')
-        .attr('x2',function(d){return d.vx})
-        .attr('y2',function(d){return d.vy});
+
+    //UPDATE + ENTER
+    nodeEnter
+        .merge(node)
+        .attr('r',3)
+        .attr('cx',function(d){
+          return w/numPerRow * (d.g_index%numPerRow) + w/numPerRow/13 * d.pnum;
+        })
+        .attr('cy',function(d){
+          return gapY * Math.floor(d.g_index/numPerRow);
+        })
+        // .attr('stroke', function(d){return scaleColor(d.bmicat)})
+        .style('fill', function(d){return scaleColor(d.bmicat)});
+        //.style("opacity", .7);
+
+    //EXIT
+    node.exit().remove();
+}
+
+// Parse
+function parse(d){
+  return {
+    hhnum: d.HHNUM,
+    pnum: d.PNUM,
+    g_index: d.g_index,
+    bmi: d.BMI,
+    bmicat: d.BMICAT,
+    region: d.region,
+    targetgroup: d.targetgroup,
+    income: d.inchhavg_r,
+    familysize: d.resunitsize
+  }
 }
