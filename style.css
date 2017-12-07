@@ -45,7 +45,7 @@ svg {
 
 .canvas{
   width:100%;
-  min-height:600px;
+  min-height:500px;
   padding-top: 3%;
   margin-left: -5%;
 }
@@ -116,8 +116,13 @@ svg {
   padding: 5px 0px;
 }
 
+.sectionSubtitle {
+  font-weight: bold;
+  padding-top: 2%;
+}
+
 .acknowlegements {
-  margin-top: 2%;
+  margin: 4% 0;
 }
 
 .sectionContent {
@@ -129,5 +134,5 @@ svg {
 }
 
 .textOrange {
-  color: #ffb355;
+  color: #ff8c00;
 }
