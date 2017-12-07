@@ -82,15 +82,15 @@ function draw(data){
         .on('mouseenter',function(d){
             var tooltip = d3.select('.custom-tooltip');
             tooltip.select('.title')
-                .html("Family " + d.g_index)
+                .html( d.sex + " member from Family " + d.g_index)
             tooltip.select('.value1')
                 .html("BMI: " + d.bmi)
             tooltip.select('.value2')
-                .html("Census region: " + d.region)
+                .html("Demographic: " + d.region)
             tooltip.select('.value3')
-                .html("Monthly income: $" + d.income)
+                .html("Monthly income: $" + Math.floor(d.income));
             tooltip.select('.value4')
-                .html("Family size: " + d.familysize);
+                .html("Age Range: " + d.age);
             tooltip.transition().style('opacity',1);
             d3.select(this).style('stroke-width','3px');
         })
@@ -136,6 +136,11 @@ function parse(d){
     region: d.region,
     targetgroup: d.targetgroup,
     income: d.inchhavg_r,
-    familysize: d.resunitsize
+    familysize: d.resunitsize,
+    age: d.AGE_R,
+    race: d.RACECAT_R,
+    edu: d.EDUCCAT,
+    marital: d.MARITAL,
+    sex: d.SEX
   }
 }
