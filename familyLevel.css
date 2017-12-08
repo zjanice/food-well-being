@@ -8,7 +8,7 @@ body {
 }*/
 
 #title {
-  margin: 2% 20%;
+  margin: 2% 17%;
 }
 
 .canvas{
@@ -37,6 +37,7 @@ body {
 .legend {
   height: 30px;
   width: 100%;
+  margin-top: 5%;
   margin-left: 3% !important;
 }
 
@@ -56,4 +57,16 @@ body {
   content: ' \25CF';
   font-size: 15px;
   color: #ff7b7b;
+}
+
+.sectionTitle {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1.2em;
+  border-bottom: 1px solid #bdbdbd;
+  padding: 5px 0px;
+}
+
+.sectionContent {
+  padding-top: 10px;
 }

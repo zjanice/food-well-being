@@ -5,7 +5,7 @@
   <title>DS Final Proejct</title>
   <script src="https://d3js.org/d3.v4.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link href="style_0.css" rel="stylesheet"/>
+  <link href="familyLevel.css" rel="stylesheet"/>
   <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
@@ -16,11 +16,27 @@
     <div id="subTitle"></div>
   </header>
   <div class="container">
-    <div class="legend row">
-      <span class="legendGreen col-2"> Not overweight</span>
-      <span class="legendOrange col-2"> Overweight</span>
-      <span class="legendRed col-2"> Obese</span>
+    <div class="aboutViz">
+      <!-- <div class="sectionTitle">About the visualization</div> -->
+      <div class="sectionContent">
+        In this visualization, we aim to show a family-level visuzalition and to
+        explore how family members’ BMIs may or may not influence each other.
+        Each color-coded circle represents an individual, and each family has been grouped
+        into a cluster.
+        <span class="legendGreen col-2"> Not overweight</span>
+        <span class="legendOrange col-2"> Overweight</span>
+        <span class="legendRed col-2"> Obese</span>
+
+        Mouseover to see more details about an individual. 
+      </div>
+      <!-- <div class="legend row">
+        <span class="legendGreen col-2"> Not overweight</span>
+        <span class="legendOrange col-2"> Overweight</span>
+        <span class="legendRed col-2"> Obese</span>
+      </div> -->
     </div>
+
+
     <section class="canvas" id="canvas"></section>
 
     <div class="custom-tooltip">
@@ -32,8 +48,10 @@
       <p class="value4"></p>
     </div>
 
+
+
   </div>
-  <script src='app_1.js'></script>
+  <script src='familyLevel.js'></script>
   <script src='lib/crossfilter.js'></script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
